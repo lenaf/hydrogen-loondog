@@ -1,5 +1,5 @@
-import {json, type LoaderArgs} from '@shopify/remix-oxygen';
-import {useLoaderData} from '@remix-run/react';
+import { json, type LoaderArgs } from '@shopify/remix-oxygen';
+import { useLoaderData } from '@remix-run/react';
 import type {
   Filter,
   ProductCollectionSortKeys,
@@ -21,29 +21,29 @@ import {
   ProductCard,
   Button,
 } from '~/components';
-import {PRODUCT_CARD_FRAGMENT} from '~/data/fragments';
-import {routeHeaders} from '~/data/cache';
-import {seoPayload} from '~/lib/seo.server';
-import type {AppliedFilter, SortParam} from '~/components/SortFilter';
-import {getImageLoadingPriority} from '~/lib/const';
+import { PRODUCT_CARD_FRAGMENT } from '~/data/fragments';
+import { routeHeaders } from '~/data/cache';
+import { seoPayload } from '~/lib/seo.server';
+import type { AppliedFilter, SortParam } from '~/components/SortFilter';
+import { getImageLoadingPriority } from '~/lib/const';
 
 export const headers = routeHeaders;
 
 type VariantFilterParam = Record<string, string | boolean>;
-type PriceFiltersQueryParam = Record<'price', {max?: number; min?: number}>;
+type PriceFiltersQueryParam = Record<'price', { max?: number; min?: number }>;
 type VariantOptionFiltersQueryParam = Record<
   'variantOption',
-  {name: string; value: string}
+  { name: string; value: string }
 >;
 type FiltersQueryParams = Array<
   VariantFilterParam | PriceFiltersQueryParam | VariantOptionFiltersQueryParam
 >;
 
-export async function loader({params, request, context}: LoaderArgs) {
+export async function loader({ params, request, context }: LoaderArgs) {
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 8,
   });
-  const {collectionHandle} = params;
+  const { collectionHandle } = params;
 
   invariant(collectionHandle, 'Missing collectionHandle param');
 
@@ -51,7 +51,7 @@ export async function loader({params, request, context}: LoaderArgs) {
   const knownFilters = ['productVendor', 'productType'];
   const available = 'available';
   const variantOption = 'variantOption';
-  const {sortKey, reverse} = getSortValuesFromParam(
+  const { sortKey, reverse } = getSortValuesFromParam(
     searchParams.get('sort') as SortParam,
   );
   const filters: FiltersQueryParams = [];
@@ -59,7 +59,7 @@ export async function loader({params, request, context}: LoaderArgs) {
 
   for (const [key, value] of searchParams.entries()) {
     if (available === key) {
-      filters.push({available: value === 'true'});
+      filters.push({ available: value === 'true' });
       appliedFilters.push({
         label: value === 'true' ? 'In stock' : 'Out of stock',
         urlParam: {
@@ -68,12 +68,12 @@ export async function loader({params, request, context}: LoaderArgs) {
         },
       });
     } else if (knownFilters.includes(key)) {
-      filters.push({[key]: value});
-      appliedFilters.push({label: value, urlParam: {key, value}});
+      filters.push({ [key]: value });
+      appliedFilters.push({ label: value, urlParam: { key, value } });
     } else if (key.includes(variantOption)) {
       const [name, val] = value.split(':');
-      filters.push({variantOption: {name, value: val}});
-      appliedFilters.push({label: val, urlParam: {key, value}});
+      filters.push({ variantOption: { name, value: val } });
+      appliedFilters.push({ label: val, urlParam: { key, value } });
     }
   }
 
@@ -81,19 +81,19 @@ export async function loader({params, request, context}: LoaderArgs) {
   // the filters array. See price filters limitations:
   // https://shopify.dev/custom-storefronts/products-collections/filter-products#limitations
   if (searchParams.has('minPrice') || searchParams.has('maxPrice')) {
-    const price: {min?: number; max?: number} = {};
+    const price: { min?: number; max?: number } = {};
     if (searchParams.has('minPrice')) {
       price.min = Number(searchParams.get('minPrice')) || 0;
       appliedFilters.push({
         label: `Min: $${price.min}`,
-        urlParam: {key: 'minPrice', value: searchParams.get('minPrice')!},
+        urlParam: { key: 'minPrice', value: searchParams.get('minPrice')! },
       });
     }
     if (searchParams.has('maxPrice')) {
       price.max = Number(searchParams.get('maxPrice')) || 0;
       appliedFilters.push({
         label: `Max: $${price.max}`,
-        urlParam: {key: 'maxPrice', value: searchParams.get('maxPrice')!},
+        urlParam: { key: 'maxPrice', value: searchParams.get('maxPrice')! },
       });
     }
     filters.push({
@@ -101,7 +101,7 @@ export async function loader({params, request, context}: LoaderArgs) {
     });
   }
 
-  const {collection, collections} = await context.storefront.query(
+  const { collection, collections } = await context.storefront.query(
     COLLECTION_QUERY,
     {
       variables: {
@@ -117,10 +117,10 @@ export async function loader({params, request, context}: LoaderArgs) {
   );
 
   if (!collection) {
-    throw new Response('collection', {status: 404});
+    throw new Response('collection', { status: 404 });
   }
 
-  const seo = seoPayload.collection({collection, url: request.url});
+  const seo = seoPayload.collection({ collection, url: request.url });
 
   return json({
     collection,
@@ -136,9 +136,9 @@ export async function loader({params, request, context}: LoaderArgs) {
 }
 
 export default function Collection() {
-  const {collection, collections, appliedFilters} =
+  const { collection, collections, appliedFilters } =
     useLoaderData<typeof loader>();
-
+  console.log(collection)
   return (
     <>
       <PageHeader heading={collection.title}>
@@ -159,7 +159,7 @@ export default function Collection() {
           collections={collections}
         >
           <Pagination connection={collection.products}>
-            {({nodes, isLoading, PreviousLink, NextLink}) => (
+            {({ nodes, isLoading, PreviousLink, NextLink }) => (
               <>
                 <div className="flex items-center justify-center mb-6">
                   <Button as={PreviousLink} variant="secondary" width="full">
