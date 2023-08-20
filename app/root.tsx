@@ -15,23 +15,23 @@ import {
   useMatches,
   useRouteError,
 } from '@remix-run/react';
-import {ShopifySalesChannel, Seo} from '@shopify/hydrogen';
+import { ShopifySalesChannel, Seo } from '@shopify/hydrogen';
 import invariant from 'tiny-invariant';
 
-import {Layout} from '~/components';
-import {seoPayload} from '~/lib/seo.server';
+import { Layout } from '~/components';
+import { seoPayload } from '~/lib/seo.server';
 
 import favicon from '../public/favicon.svg';
 
-import {GenericError} from './components/GenericError';
-import {NotFound} from './components/NotFound';
+import { GenericError } from './components/GenericError';
+import { NotFound } from './components/NotFound';
 import styles from './styles/app.css';
-import {DEFAULT_LOCALE, parseMenu} from './lib/utils';
-import {useAnalytics} from './hooks/useAnalytics';
+import { DEFAULT_LOCALE, parseMenu } from './lib/utils';
+import { useAnalytics } from './hooks/useAnalytics';
 
 export const links: LinksFunction = () => {
   return [
-    {rel: 'stylesheet', href: styles},
+    { rel: 'stylesheet', href: styles },
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -40,18 +40,18 @@ export const links: LinksFunction = () => {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    { rel: 'icon', type: 'image/svg+xml', href: favicon },
   ];
 };
 
-export async function loader({request, context}: LoaderArgs) {
-  const {session, storefront, cart} = context;
+export async function loader({ request, context }: LoaderArgs) {
+  const { session, storefront, cart } = context;
   const [customerAccessToken, layout] = await Promise.all([
     session.get('customerAccessToken'),
     getLayoutData(context),
   ]);
 
-  const seo = seoPayload.root({shop: layout.shop, url: request.url});
+  const seo = seoPayload.root({ shop: layout.shop, url: request.url });
 
   return defer({
     isLoggedIn: Boolean(customerAccessToken),
@@ -78,6 +78,7 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
         <Seo />
         <Meta />
         <Links />
@@ -96,7 +97,7 @@ export default function App() {
   );
 }
 
-export function ErrorBoundary({error}: {error: Error}) {
+export function ErrorBoundary({ error }: { error: Error }) {
   const [root] = useMatches();
   const locale = root?.data?.selectedLocale ?? DEFAULT_LOCALE;
   const routeError = useRouteError();
@@ -130,7 +131,7 @@ export function ErrorBoundary({error}: {error: Error}) {
                 <NotFound type={pageType} />
               ) : (
                 <GenericError
-                  error={{message: `${routeError.status} ${routeError.data}`}}
+                  error={{ message: `${routeError.status} ${routeError.data}` }}
                 />
               )}
             </>
@@ -200,7 +201,7 @@ const LAYOUT_QUERY = `#graphql
   }
 ` as const;
 
-async function getLayoutData({storefront, env}: AppLoadContext) {
+async function getLayoutData({ storefront, env }: AppLoadContext) {
   const data = await storefront.query(LAYOUT_QUERY, {
     variables: {
       headerMenuHandle: 'main-menu',
@@ -219,25 +220,25 @@ async function getLayoutData({storefront, env}: AppLoadContext) {
       - /blog/news/blog-post -> /news/blog-post
       - /collections/all -> /products
   */
-  const customPrefixes = {BLOG: '', CATALOG: 'products'};
+  const customPrefixes = { BLOG: '', CATALOG: 'products' };
 
   const headerMenu = data?.headerMenu
     ? parseMenu(
-        data.headerMenu,
-        data.shop.primaryDomain.url,
-        env,
-        customPrefixes,
-      )
+      data.headerMenu,
+      data.shop.primaryDomain.url,
+      env,
+      customPrefixes,
+    )
     : undefined;
 
   const footerMenu = data?.footerMenu
     ? parseMenu(
-        data.footerMenu,
-        data.shop.primaryDomain.url,
-        env,
-        customPrefixes,
-      )
+      data.footerMenu,
+      data.shop.primaryDomain.url,
+      env,
+      customPrefixes,
+    )
     : undefined;
 
-  return {shop: data.shop, headerMenu, footerMenu};
+  return { shop: data.shop, headerMenu, footerMenu };
 }

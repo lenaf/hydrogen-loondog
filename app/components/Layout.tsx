@@ -41,7 +41,7 @@ type LayoutProps = {
 };
 
 export function Layout({ children, layout }: LayoutProps) {
-  const { headerMenu, footerMenu } = layout;
+  const { headerMenu, footerMenu } = layout || {};
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -188,7 +188,7 @@ function MobileHeader({
     <header
       role="banner"
       className={`${isHome
-        ? 'bg-primary/80 dark:bg-contrast/60 text-contrast dark:text-primary shadow-darkHeader'
+        ? 'bg-contrast/80 dark:bg-contrast/60 text-primary dark:text-primary shadow-darkHeader'
         : 'bg-contrast/80 text-primary'
         } flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 px-4 md:px-8`}
     >

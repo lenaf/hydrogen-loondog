@@ -24,7 +24,7 @@ export async function loader({ params, context }: LoaderArgs) {
   }
 
   const { shop, hero } = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
-    variables: { handle: 'freestyle' },
+    variables: { handle: 'magnets' },
   });
 
   console.log(shop,)
@@ -93,7 +93,7 @@ export default function Homepage() {
   return (
     <>
       {primaryHero && (
-        <Hero {...primaryHero} height="full" top loading="eager" />
+        <Hero {...primaryHero} top loading="eager" />
       )}
 
       {featuredProducts && (

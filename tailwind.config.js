@@ -39,7 +39,7 @@ export default {
         mobileGallery: 'calc(100vw - 3rem)',
       },
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        sans: ['Poppins'],
       },
       fontSize: {
         display: ['var(--font-size-display)', '1.1'],
