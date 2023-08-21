@@ -7,7 +7,7 @@ import type {
 } from '@shopify/hydrogen/storefront-api-types';
 
 import type { CollectionContentFragment } from 'storefrontapi.generated';
-import { Heading, Text, Link } from '~/components';
+import { Heading, Text, Link, Button } from '~/components';
 
 type HeroProps = CollectionContentFragment & {
   height?: 'full';
@@ -74,9 +74,11 @@ export function Hero({
             {byline.value}
           </Text>
         )}
-        <Link to={`/collections/${handle}`}>
-          {cta?.value && <Text size="lead">{cta.value}</Text>}
-        </Link>
+        <Button>
+          <Link to={`/collections/${handle}`}>
+            {cta?.value && <Text size="lead">{cta.value}</Text>}
+          </Link>
+        </Button>
       </div>
     </section>
   );
