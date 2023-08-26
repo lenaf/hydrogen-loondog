@@ -30,7 +30,7 @@ import {
 } from '~/lib/utils';
 import { useIsHydrated } from '~/hooks/useIsHydrated';
 import { useCartFetchers } from '~/hooks/useCartFetchers';
-import Logo from './logo';
+import Logo from './Logo';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -188,7 +188,7 @@ function MobileHeader({
     <header
       role="banner"
       className={`${isHome
-        ? 'bg-contrast/80 dark:bg-contrast/60 text-primary dark:text-primary shadow-darkHeader'
+        ? 'bg-contrast/80 dark:bg-contrast/60 text-primary dark:text-primary'
         : 'bg-contrast/80 text-primary'
         } flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 px-4 md:px-8`}
     >
@@ -199,7 +199,7 @@ function MobileHeader({
         >
           <IconMenu />
         </button>
-        <Form
+        {/* <Form
           method="get"
           action={params.locale ? `/${params.locale}/search` : '/search'}
           className="items-center gap-2 sm:flex"
@@ -221,7 +221,7 @@ function MobileHeader({
             placeholder="Search"
             name="q"
           />
-        </Form>
+        </Form> */}
       </div>
 
       <Link
@@ -260,14 +260,14 @@ function DesktopHeader({
     <header
       role="banner"
       className={`${isHome
-        ? 'bg-contrast/80 dark:bg-contrast/60 text-primary dark:text-primary shadow-lightHeader'
+        ? 'bg-contrast/80 dark:bg-contrast/60 text-primary dark:text-primary '
         : 'bg-contrast/80 text-primary'
-        } ${!isHome && y > 50 && ' shadow-lightHeader'
-        } hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-8`}
+        }  hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-8`}
     >
       <div className="flex gap-12 items-center">
         <Link className="font-bold flex items-center" to="/" prefetch="intent">
-          <Logo height='20px' className='mr-4' /> {title}
+          <Logo height='40px' className='mr-4' />
+          <Heading size='lead'>{title}</Heading>
         </Link>
         <nav className="flex gap-8">
           {/* Top level menu items */}
@@ -287,7 +287,7 @@ function DesktopHeader({
         </nav>
       </div>
       <div className="flex items-center gap-1">
-        <Form
+        {/* <Form
           method="get"
           action={params.locale ? `/${params.locale}/search` : '/search'}
           className="flex items-center gap-2"
@@ -309,7 +309,7 @@ function DesktopHeader({
           >
             <IconSearch />
           </button>
-        </Form>
+        </Form> */}
         <AccountLink className="relative flex items-center justify-center w-8 h-8 focus:ring-primary/5" />
         <CartCount isHome={isHome} openCart={openCart} />
       </div>
