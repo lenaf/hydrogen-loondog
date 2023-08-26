@@ -96,7 +96,7 @@ export default function Homepage() {
       {primaryHero && (
         <Hero {...primaryHero} top loading="eager" />
       )}
-      <div className="grid grid-cols-2 sm:grid-cols-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2">
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/10C152A3-4728-40FC-8968-DF0A6C011A3A_1_105_c.jpg?v=1692539790' }}
