@@ -96,47 +96,45 @@ export default function Homepage() {
       {primaryHero && (
         <Hero {...primaryHero} top loading="eager" />
       )}
-      <div className="flex flex-nowrap overflow-scroll">
+      <div className="grid grid-cols-2 sm:grid-cols-4">
         <Image
-          sizes="25vw"
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/10C152A3-4728-40FC-8968-DF0A6C011A3A_1_105_c.jpg?v=1692539790' }}
           alt={'dog magnet'}
         />
         <Image
-          sizes="25vw"
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/3DEF5875-3918-4690-8D1C-6415331FC632_1_105_c.jpg?v=1692539790' }}
           alt={'cat magnet'}
         />
         <Image
-          sizes="25vw"
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/5FDF434B-D2F7-4491-B224-0138A06EC222_1_201_a_28904d9a-4069-413b-9483-e4da1b22a3cc.heic?v=1692552562' }}
           alt={'dog magnet'}
         />
         <Image
-          sizes="25vw"
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/684436BF-717E-4CFB-9653-ECF3608C12AA_1_105_c.jpg?v=1692552550' }}
           alt={'cat magnet'}
         />
         <Image
-          sizes="25vw"
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/CE83AA1A-8E94-406F-A1D9-5B433834AF2B_1_105_c.jpg?v=1692552346' }}
           alt={'dog magnet'}
         />
         <Image
-          sizes="25vw"
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/C8A3F0AE-B8D7-45C3-A74C-F92D5530A814_1_105_c.jpg?v=1692552575' }}
           alt={'cat magnet'}
         />
         <Image
-          sizes="25vw"
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/D5F5B72F-CB05-4EC1-BB12-76F173824691_1_105_c_c41db1a4-3e27-40f6-8588-b4dffb2c1cbc.jpg?v=1692552284' }}
+          alt={'dog magnet'}
+        />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/5B565BF8-BA26-425B-8B34-24BD0C5942FD_1_201_a.heic?v=1693075312' }}
           alt={'dog magnet'}
         />
       </div>
