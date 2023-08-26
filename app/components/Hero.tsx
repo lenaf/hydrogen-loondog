@@ -36,7 +36,7 @@ export function Hero({
         top && '-mt-nav',
         height === 'full'
           ? 'h-screen'
-          : 'aspect-[3/2] sm:aspect-[3/2] md:aspect-[2] lg:aspect-[2] xl:aspect-[5/2]',
+          : 'aspect-[1] sm:aspect-[3/2] md:aspect-[2] lg:aspect-[2] xl:aspect-[5/2]',
       )}
     >
       <div className="absolute inset-0 grid flex-grow grid-flow-col pointer-events-none auto-cols-fr -z-10 content-stretch overflow-clip">
