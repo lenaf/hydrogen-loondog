@@ -30,7 +30,7 @@ import {
 } from '~/lib/utils';
 import { useIsHydrated } from '~/hooks/useIsHydrated';
 import { useCartFetchers } from '~/hooks/useCartFetchers';
-import Logo from './Logo';
+import Logo from './logo';
 
 type LayoutProps = {
   children: React.ReactNode;
