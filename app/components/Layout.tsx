@@ -225,13 +225,14 @@ function MobileHeader({
       </div>
 
       <Link
-        className="flex items-center self-stretch leading-[3rem] md:leading-[4rem] justify-center flex-grow w-full h-full"
+        className="flex items-center "
         to="/"
       >
+        <Logo className='mr-4' />
         <Heading
           className="font-bold text-center leading-none flex items-center"
           as={isHome ? 'h1' : 'h2'}
-        > <Logo className='mr-4' /> {title}
+        >  {title}
         </Heading>
       </Link>
 
@@ -266,7 +267,7 @@ function DesktopHeader({
     >
       <div className="flex gap-12 items-center">
         <Link className="font-bold flex items-center" to="/" prefetch="intent">
-          <Logo height='40px' className='mr-4' />
+          <Logo className='mr-4' />
           <Heading size='lead'>{title}</Heading>
         </Link>
         <nav className="flex gap-8">

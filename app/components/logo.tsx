@@ -5,13 +5,15 @@ import React from 'react';
 
 export default function Logo({
   className,
-  height = '40px'
+  height = '50px',
+  width = '50px'
 }: {
   className?: string;
   height?: string;
+  width?: string;
 }) {
   return (
-    <div style={{ width: 'auto', height, }} className={className}>
+    <div style={{ width, height, }} className={className}>
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100%"
         height="100%" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" >
         <g id="Layer_1">
