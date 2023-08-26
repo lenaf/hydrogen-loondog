@@ -8,6 +8,7 @@ import type {
 
 import type { CollectionContentFragment } from 'storefrontapi.generated';
 import { Heading, Text, Link, Button } from '~/components';
+import { useWindowSize } from 'react-use';
 
 type HeroProps = CollectionContentFragment & {
   height?: 'full';
@@ -29,6 +30,9 @@ export function Hero({
   spreadSecondary,
   top,
 }: HeroProps) {
+
+  const { width } = useWindowSize();
+  const isMobile = width < 480;
   return (
     <section
       className={clsx(
@@ -65,7 +69,7 @@ export function Hero({
       </div>
       <div className="flex flex-col items-baseline justify-between gap-4 px-6 py-8 sm:px-8 md:px-12 bg-gradient-to-t dark:from-contrast/60 dark:text-primary from-primary/60 text-contrast">
         {heading?.value && (
-          <Heading format as="h2" size="display" className="max-w-md">
+          <Heading format as="h2" size={isMobile ? "heading" : "display"} className="max-w-md">
             {heading.value}
           </Heading>
         )}
