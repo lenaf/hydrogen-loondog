@@ -1,4 +1,4 @@
-import { useRef, Suspense, useEffect } from 'react';
+import { useRef, Suspense, useEffect, useState } from 'react';
 import { Disclosure, Listbox } from '@headlessui/react';
 import { defer, redirect, type LoaderArgs } from '@shopify/remix-oxygen';
 import { useLoaderData, Await } from '@remix-run/react';
@@ -9,9 +9,18 @@ import {
   ShopPayButton,
   VariantSelector,
   getSelectedProductOptions,
+  Image
 } from '@shopify/hydrogen';
 import invariant from 'tiny-invariant';
 import clsx from 'clsx';
+
+import {
+  json,
+  unstable_composeUploadHandlers as composeUploadHandlers,
+  unstable_createMemoryUploadHandler as createMemoryUploadHandler,
+  unstable_parseMultipartFormData as parseMultipartFormData,
+} from "@shopify/remix-oxygen";
+
 
 import type {
   ProductQuery,
@@ -215,6 +224,7 @@ export function ProductForm({
   const { product, analytics, storeDomain, cloudinary } = useLoaderData<typeof loader>();
 
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   /**
    * Likewise, we're defaulting to the first variant for purposes
@@ -239,6 +249,11 @@ export function ProductForm({
       return (window.cloudinary as any).createUploadWidget({
         cloudName: cloudinary.name,
         uploadPreset: cloudinary.preset
+      }, (error: any, result: any) => {
+        if (!error && result && result.event === "success") {
+          console.log('Done! Here is the image info: ', result);
+          setUploadedImages(prev => [...prev, result.info.url]);
+        }
       })
     }
   }
@@ -251,10 +266,14 @@ export function ProductForm({
     }
   }
   useEffect(() => { if (!widget.current) { widget.current = createWidget() } }, [])
-
+  console.log(uploadedImages)
   return (
     <div className="grid gap-10">
-      <button onClick={(open)}>Upload</button>
+      <div className='flex flex-col'>
+        <Button className='mb-2' variant='secondary' onClick={(open)}>Upload Images</Button>
+        {!uploadedImages.length && <Text>Add at least one photo to proceed, but the more the better!</Text>}
+        <div className='grid grid-cols-4 gap-4'> {uploadedImages.map(url => <Image width='100px' src={url} />)}</div>
+      </div>
       <div className="grid gap-4">
         <VariantSelector
           handle={product.handle}
@@ -359,10 +378,12 @@ export function ProductForm({
               </Button>
             ) : (
               <AddToCartButton
+                disabled={!uploadedImages.length}
                 lines={[
                   {
                     merchandiseId: selectedVariant.id!,
                     quantity: 1,
+                    attributes: uploadedImages.map((url, index) => ({ key: `image-${index + 1}`, value: url }))
                   },
                 ]}
                 variant="primary"
