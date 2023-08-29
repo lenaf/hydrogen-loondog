@@ -1,8 +1,8 @@
-import {useRef, Suspense} from 'react';
-import {Disclosure, Listbox} from '@headlessui/react';
-import {defer, redirect, type LoaderArgs} from '@shopify/remix-oxygen';
-import {useLoaderData, Await} from '@remix-run/react';
-import type {ShopifyAnalyticsProduct} from '@shopify/hydrogen';
+import { useRef, Suspense, useEffect } from 'react';
+import { Disclosure, Listbox } from '@headlessui/react';
+import { defer, redirect, type LoaderArgs } from '@shopify/remix-oxygen';
+import { useLoaderData, Await } from '@remix-run/react';
+import type { ShopifyAnalyticsProduct } from '@shopify/hydrogen';
 import {
   AnalyticsPageType,
   Money,
@@ -31,21 +31,21 @@ import {
   AddToCartButton,
   Button,
 } from '~/components';
-import {getExcerpt} from '~/lib/utils';
-import {seoPayload} from '~/lib/seo.server';
-import type {Storefront} from '~/lib/type';
-import {routeHeaders} from '~/data/cache';
-import {MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT} from '~/data/fragments';
+import { getExcerpt } from '~/lib/utils';
+import { seoPayload } from '~/lib/seo.server';
+import type { Storefront } from '~/lib/type';
+import { routeHeaders } from '~/data/cache';
+import { MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT } from '~/data/fragments';
 
 export const headers = routeHeaders;
 
-export async function loader({params, request, context}: LoaderArgs) {
-  const {productHandle} = params;
+export async function loader({ params, request, context }: LoaderArgs) {
+  const { productHandle } = params;
   invariant(productHandle, 'Missing productHandle param, check route filename');
 
   const selectedOptions = getSelectedProductOptions(request);
 
-  const {shop, product} = await context.storefront.query(PRODUCT_QUERY, {
+  const { shop, product } = await context.storefront.query(PRODUCT_QUERY, {
     variables: {
       handle: productHandle,
       selectedOptions,
@@ -68,11 +68,11 @@ export async function loader({params, request, context}: LoaderArgs) {
   });
 
   if (!product?.id) {
-    throw new Response('product', {status: 404});
+    throw new Response('product', { status: 404 });
   }
 
   if (!product.selectedVariant) {
-    return redirectToFirstVariant({product, request});
+    return redirectToFirstVariant({ product, request });
   }
 
   const recommended = getRecommendedProducts(context.storefront, product.id);
@@ -94,6 +94,8 @@ export async function loader({params, request, context}: LoaderArgs) {
     url: request.url,
   });
 
+  const cloudinary = { name: context.env.CLOUDINARY_CLOUD_NAME, preset: context.env.CLOUDINARY_UPLOAD_PRESET }
+
   return defer({
     variants,
     product,
@@ -107,6 +109,7 @@ export async function loader({params, request, context}: LoaderArgs) {
       totalValue: parseFloat(selectedVariant.price.amount),
     },
     seo,
+    cloudinary
   });
 }
 
@@ -130,9 +133,9 @@ function redirectToFirstVariant({
 }
 
 export default function Product() {
-  const {product, shop, recommended, variants} = useLoaderData<typeof loader>();
-  const {media, title, vendor, descriptionHtml} = product;
-  const {shippingPolicy, refundPolicy} = shop;
+  const { product, shop, recommended, variants } = useLoaderData<typeof loader>();
+  const { media, title, vendor, descriptionHtml } = product;
+  const { shippingPolicy, refundPolicy } = shop;
 
   return (
     <>
@@ -209,7 +212,7 @@ export function ProductForm({
 }: {
   variants: ProductVariantFragmentFragment[];
 }) {
-  const {product, analytics, storeDomain} = useLoaderData<typeof loader>();
+  const { product, analytics, storeDomain, cloudinary } = useLoaderData<typeof loader>();
 
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -231,15 +234,34 @@ export function ProductForm({
     quantity: 1,
   };
 
+  const createWidget = () => {
+    if ('cloudinary' in window) {
+      return (window.cloudinary as any).createUploadWidget({
+        cloudName: cloudinary.name,
+        uploadPreset: cloudinary.preset
+      })
+    }
+  }
+
+  const widget = useRef();
+
+  const open = () => {
+    if (widget.current) {
+      (widget.current as any).open()
+    }
+  }
+  useEffect(() => { if (!widget.current) { widget.current = createWidget() } }, [])
+
   return (
     <div className="grid gap-10">
+      <button onClick={(open)}>Upload</button>
       <div className="grid gap-4">
         <VariantSelector
           handle={product.handle}
           options={product.options}
           variants={variants}
         >
-          {({option}) => {
+          {({ option }) => {
             return (
               <div
                 key={option.name}
@@ -252,7 +274,7 @@ export function ProductForm({
                   {option.values.length > 7 ? (
                     <div className="relative w-full">
                       <Listbox>
-                        {({open}) => (
+                        {({ open }) => (
                           <>
                             <Listbox.Button
                               ref={closeRef}
@@ -274,12 +296,12 @@ export function ProductForm({
                             >
                               {option.values
                                 .filter((value) => value.isAvailable)
-                                .map(({value, to, isActive}) => (
+                                .map(({ value, to, isActive }) => (
                                   <Listbox.Option
                                     key={`option-${option.name}-${value}`}
                                     value={value}
                                   >
-                                    {({active}) => (
+                                    {({ active }) => (
                                       <Link
                                         to={to}
                                         className={clsx(
@@ -307,7 +329,7 @@ export function ProductForm({
                       </Listbox>
                     </div>
                   ) : (
-                    option.values.map(({value, isAvailable, isActive, to}) => (
+                    option.values.map(({ value, isAvailable, isActive, to }) => (
                       <Link
                         key={option.name + value}
                         to={to}
@@ -396,7 +418,7 @@ function ProductDetail({
 }) {
   return (
     <Disclosure key={title} as="div" className="grid w-full gap-2">
-      {({open}) => (
+      {({ open }) => (
         <>
           <Disclosure.Button className="text-left">
             <div className="flex justify-between">
@@ -415,7 +437,7 @@ function ProductDetail({
           <Disclosure.Panel className={'pb-4 pt-2 grid gap-2'}>
             <div
               className="prose dark:prose-invert"
-              dangerouslySetInnerHTML={{__html: content}}
+              dangerouslySetInnerHTML={{ __html: content }}
             />
             {learnMore && (
               <div className="">
@@ -566,7 +588,7 @@ async function getRecommendedProducts(
   productId: string,
 ) {
   const products = await storefront.query(RECOMMENDED_PRODUCTS_QUERY, {
-    variables: {productId, count: 12},
+    variables: { productId, count: 12 },
   });
 
   invariant(products, 'No data returned from Shopify API');
@@ -584,5 +606,5 @@ async function getRecommendedProducts(
 
   mergedProducts.splice(originalProduct, 1);
 
-  return {nodes: mergedProducts};
+  return { nodes: mergedProducts };
 }

@@ -21,6 +21,8 @@ declare global {
     PRIVATE_STOREFRONT_API_TOKEN: string;
     PUBLIC_STORE_DOMAIN: string;
     PUBLIC_STOREFRONT_ID: string;
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_UPLOAD_PRESET: string;
   }
 }
 

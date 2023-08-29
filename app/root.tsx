@@ -63,6 +63,7 @@ export async function loader({ request, context }: LoaderArgs) {
       shopId: layout.shop.id,
     },
     seo,
+
   });
 }
 
@@ -84,6 +85,8 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript">
+        </script>
         <Layout
           key={`${locale.language}-${locale.country}`}
           layout={data.layout}
