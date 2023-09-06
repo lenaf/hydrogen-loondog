@@ -1,12 +1,17 @@
 import clsx from 'clsx';
-import type {ShopifyAnalyticsProduct} from '@shopify/hydrogen';
-import {flattenConnection, Image, Money, useMoney} from '@shopify/hydrogen';
-import type {MoneyV2, Product} from '@shopify/hydrogen/storefront-api-types';
+import type { ShopifyAnalyticsProduct } from '@shopify/hydrogen';
+import { flattenConnection, Image, Money, useMoney } from '@shopify/hydrogen';
+import type { MoneyV2, Product } from '@shopify/hydrogen/storefront-api-types';
 
-import type {ProductCardFragment} from 'storefrontapi.generated';
-import {Text, Link, AddToCartButton, Button} from '~/components';
-import {isDiscounted, isNewArrival} from '~/lib/utils';
-import {getProductPlaceholder} from '~/lib/placeholders';
+import type { ProductCardFragment } from 'storefrontapi.generated';
+import { Text, Link, AddToCartButton, Button } from '~/components';
+import { isDiscounted, isNewArrival } from '~/lib/utils';
+import { getProductPlaceholder } from '~/lib/placeholders';
+import {
+  OkendoStarRating,
+  WithOkendoStarRatingSnippet,
+} from "@okendo/shopify-hydrogen";
+import { SerializeFrom } from '@shopify/remix-oxygen';
 
 export function ProductCard({
   product,
@@ -16,7 +21,7 @@ export function ProductCard({
   onClick,
   quickAdd,
 }: {
-  product: ProductCardFragment;
+  product: SerializeFrom<Product & WithOkendoStarRatingSnippet>;
   label?: string;
   className?: string;
   loading?: HTMLImageElement['loading'];
@@ -33,7 +38,7 @@ export function ProductCard({
   const firstVariant = flattenConnection(cardProduct.variants)[0];
 
   if (!firstVariant) return null;
-  const {image, price, compareAtPrice} = firstVariant;
+  const { image, price, compareAtPrice } = firstVariant;
 
   if (label) {
     cardLabel = label;
@@ -98,6 +103,10 @@ export function ProductCard({
                 )}
               </Text>
             </div>
+            <OkendoStarRating
+              productId={product.id}
+              okendoStarRatingSnippet={product.okendoStarRatingSnippet}
+            />
           </div>
         </div>
       </Link>
@@ -139,7 +148,7 @@ function CompareAtPrice({
   data: MoneyV2;
   className?: string;
 }) {
-  const {currencyNarrowSymbol, withoutTrailingZerosAndCurrency} =
+  const { currencyNarrowSymbol, withoutTrailingZerosAndCurrency } =
     useMoney(data);
 
   const styles = clsx('strike', className);

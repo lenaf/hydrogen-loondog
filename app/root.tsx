@@ -3,6 +3,7 @@ import {
   type LinksFunction,
   type LoaderArgs,
   type AppLoadContext,
+  MetaFunction,
 } from '@shopify/remix-oxygen';
 import {
   isRouteErrorResponse,
@@ -28,6 +29,10 @@ import { NotFound } from './components/NotFound';
 import styles from './styles/app.css';
 import { DEFAULT_LOCALE, parseMenu } from './lib/utils';
 import { useAnalytics } from './hooks/useAnalytics';
+import {
+  OkendoProvider,
+  getOkendoProviderData,
+} from "@okendo/shopify-hydrogen";
 
 export const links: LinksFunction = () => {
   return [
@@ -63,9 +68,20 @@ export async function loader({ request, context }: LoaderArgs) {
       shopId: layout.shop.id,
     },
     seo,
-
+    okendoProviderData: await getOkendoProviderData({
+      context,
+      subscriberId: "c1d07b01-debf-4c1b-afbb-93b549a650e5",
+    }),
   });
 }
+
+export const meta: MetaFunction = () => {
+  return [{
+    charset: "utf-8",
+    viewport: "width=device-width,initial-scale=1",
+    "oke:subscriber_id": "c1d07b01-debf-4c1b-afbb-93b549a650e5",
+  }]
+};
 
 export default function App() {
   const data = useLoaderData<typeof loader>();
@@ -87,6 +103,7 @@ export default function App() {
       <body>
         <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript">
         </script>
+        <OkendoProvider okendoProviderData={data.okendoProviderData} />
         <Layout
           key={`${locale.language}-${locale.country}`}
           layout={data.layout}

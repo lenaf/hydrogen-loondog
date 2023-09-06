@@ -45,6 +45,15 @@ import { seoPayload } from '~/lib/seo.server';
 import type { Storefront } from '~/lib/type';
 import { routeHeaders } from '~/data/cache';
 import { MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT } from '~/data/fragments';
+import {
+  OkendoReviews,
+  OkendoStarRating,
+  WithOkendoStarRatingSnippet,
+  WithOkendoReviewsSnippet,
+  OKENDO_PRODUCT_STAR_RATING_FRAGMENT,
+  OKENDO_PRODUCT_REVIEWS_FRAGMENT,
+} from "@okendo/shopify-hydrogen";
+import { ProductVariant, Shop } from '@shopify/hydrogen/storefront-api-types';
 
 export const headers = routeHeaders;
 
@@ -54,7 +63,13 @@ export async function loader({ params, request, context }: LoaderArgs) {
 
   const selectedOptions = getSelectedProductOptions(request);
 
-  const { shop, product } = await context.storefront.query(PRODUCT_QUERY, {
+  const { shop, product } = await context.storefront.query<{
+    product: any & {
+      selectedVariant?: ProductVariant;
+    } & WithOkendoStarRatingSnippet &
+    WithOkendoReviewsSnippet;
+    shop: Shop;
+  }>(PRODUCT_QUERY, {
     variables: {
       handle: productHandle,
       selectedOptions,
@@ -160,6 +175,10 @@ export default function Product() {
                 <Heading as="h1" className="whitespace-normal">
                   {title}
                 </Heading>
+                <OkendoStarRating
+                  productId={product.id}
+                  okendoStarRatingSnippet={product.okendoStarRatingSnippet}
+                />
                 {vendor && (
                   <Text className={'opacity-50 font-medium'}>{vendor}</Text>
                 )}
@@ -202,13 +221,17 @@ export default function Product() {
           </div>
         </div>
       </Section>
+      <OkendoReviews
+        productId={product.id}
+        okendoReviewsSnippet={product.okendoReviewsSnippet}
+      />
       <Suspense fallback={<Skeleton className="h-32" />}>
         <Await
           errorElement="There was a problem loading related products"
           resolve={recommended}
         >
           {(products) => (
-            <ProductSwimlane title="Related Products" products={products} />
+            <ProductSwimlane title="Related Products" products={products as any} />
           )}
         </Await>
       </Suspense>
@@ -514,6 +537,8 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
 `;
 
 const PRODUCT_QUERY = `#graphql
+${OKENDO_PRODUCT_STAR_RATING_FRAGMENT}
+	${OKENDO_PRODUCT_REVIEWS_FRAGMENT}
   query Product(
     $country: CountryCode
     $language: LanguageCode
@@ -527,6 +552,8 @@ const PRODUCT_QUERY = `#graphql
       handle
       descriptionHtml
       description
+      ...OkendoStarRatingSnippet
+			...OkendoReviewsSnippet
       options {
         name
         values
@@ -617,12 +644,12 @@ async function getRecommendedProducts(
   const mergedProducts = (products.recommended ?? [])
     .concat(products.additional.nodes)
     .filter(
-      (value, index, array) =>
-        array.findIndex((value2) => value2.id === value.id) === index,
+      (value: any, index: any, array: any) =>
+        array.findIndex((value2: any) => value2.id === value.id) === index,
     );
 
   const originalProduct = mergedProducts.findIndex(
-    (item) => item.id === productId,
+    (item: any) => item.id === productId,
   );
 
   mergedProducts.splice(originalProduct, 1);
