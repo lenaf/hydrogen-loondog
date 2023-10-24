@@ -96,47 +96,73 @@ export default function Homepage() {
       {primaryHero && (
         <Hero {...primaryHero} top loading="eager" />
       )}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
         <Image
           aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/10C152A3-4728-40FC-8968-DF0A6C011A3A_1_105_c.jpg?v=1692539790' }}
-          alt={'dog magnet'}
-        />
-        <Image
-          aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/3DEF5875-3918-4690-8D1C-6415331FC632_1_105_c.jpg?v=1692539790' }}
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/calico.png?v=1698108663' }}
           alt={'cat magnet'}
         />
         <Image
           aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/5FDF434B-D2F7-4491-B224-0138A06EC222_1_201_a_28904d9a-4069-413b-9483-e4da1b22a3cc.heic?v=1692552562' }}
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/husky.png?v=1698108663' }}
           alt={'dog magnet'}
         />
         <Image
           aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/684436BF-717E-4CFB-9653-ECF3608C12AA_1_105_c.jpg?v=1692552550' }}
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/bull.png?v=1698108665' }}
+          alt={'dog magnet'}
+        />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/sheepdog.png?v=1698108665' }}
+          alt={'dog magnet'}
+        />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/comet.png?v=1698108665' }}
           alt={'cat magnet'}
         />
         <Image
           aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/CE83AA1A-8E94-406F-A1D9-5B433834AF2B_1_105_c.jpg?v=1692552346' }}
-          alt={'dog magnet'}
-        />
-        <Image
-          aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/C8A3F0AE-B8D7-45C3-A74C-F92D5530A814_1_105_c.jpg?v=1692552575' }}
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/celeste.png?v=1698108665' }}
           alt={'cat magnet'}
         />
         <Image
           aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/D5F5B72F-CB05-4EC1-BB12-76F173824691_1_105_c_c41db1a4-3e27-40f6-8588-b4dffb2c1cbc.jpg?v=1692552284' }}
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/blaize.png?v=1698108663' }}
           alt={'dog magnet'}
         />
         <Image
           aspectRatio="1"
-          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/5B565BF8-BA26-425B-8B34-24BD0C5942FD_1_201_a.heic?v=1693075312' }}
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/leo.png?v=1698108665' }}
+          alt={'cat magnet'}
+        />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/terrier.png?v=1698108665' }}
           alt={'dog magnet'}
         />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/pimpy.png?v=1698108665' }}
+          alt={'cat magnet'}
+        />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/tulip.png?v=1698108665' }}
+          alt={'dog magnet'}
+        />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/graydog.png?v=1698108665' }}
+          alt={'dog magnet'}
+        />
+        <Image
+          aspectRatio="1"
+          data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/graydog2.png?v=1698108665' }}
+          alt={'dog magnet'}
+        />
+
       </div>
       {/* {featuredProducts && (
         <Suspense>
