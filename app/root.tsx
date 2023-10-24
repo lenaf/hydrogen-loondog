@@ -75,7 +75,7 @@ export async function loader({ request, context }: LoaderArgs) {
   });
 }
 
-export const meta: MetaFunction = () => {
+export const meta = () => {
   return [{
     charset: "utf-8",
     viewport: "width=device-width,initial-scale=1",
@@ -96,6 +96,17 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charSet="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
         <Seo />
         <Meta />
         <Links />
