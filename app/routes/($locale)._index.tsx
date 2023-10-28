@@ -126,7 +126,6 @@ export default function Homepage() {
       <Slider
         ref={slider}
         className='px-12'
-        dots
         swipeToSlide
         slidesToScroll={1}
         slidesToShow={4}

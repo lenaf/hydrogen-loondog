@@ -190,12 +190,12 @@ function MobileHeader({
       className={`${isHome
         ? 'bg-contrast/80 dark:bg-contrast/60 text-primary dark:text-primary'
         : 'bg-contrast/80 text-primary'
-        } flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 px-4 md:px-8`}
+        } flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-2 px-2 md:px-8`}
     >
-      <div className="flex items-center justify-start w-full gap-4">
+      <div className="flex items-center justify-start gap-1">
         <button
           onClick={openMenu}
-          className="relative flex items-center justify-center w-8 h-8"
+          className="relative flex items-center justify-centerh-8"
         >
           <IconMenu />
         </button>
@@ -225,19 +225,19 @@ function MobileHeader({
       </div>
 
       <Link
-        className="flex items-center "
+        className="flex items-center min-w-fit"
         to="/"
       >
-        <Logo className='mr-4' />
+        <Logo width='30px' className='mr-2' />
         <Heading
-          className="font-bold text-center leading-none flex items-center"
+          className="font-bold text-center min-w-fit leading-none flex items-center md:whitespace-nowrap md:text-lg"
           as={isHome ? 'h1' : 'h2'}
         >  {title}
         </Heading>
       </Link>
 
-      <div className="flex items-center justify-end w-full gap-4">
-        <AccountLink className="relative flex items-center justify-center w-8 h-8" />
+      <div className="flex items-center justify-end gap-1">
+        <AccountLink className="relative flex items-center justify-center" />
         <CartCount isHome={isHome} openCart={openCart} />
       </div>
     </header>
@@ -268,7 +268,7 @@ function DesktopHeader({
       <div className="flex gap-12 items-center">
         <Link className="font-bold flex items-center" to="/" prefetch="intent">
           <Logo className='mr-4' />
-          <Heading size='lead'>{title}</Heading>
+          <Heading className='whitespace-nowrap' size='lead'>{title}</Heading>
         </Link>
         <nav className="flex gap-8">
           {/* Top level menu items */}
