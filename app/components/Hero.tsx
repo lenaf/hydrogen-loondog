@@ -76,7 +76,7 @@ export function Hero({
           </Text>
         )}
         <Button>
-          <Link to={`/collections/${handle}`}>
+          <Link to={`/products/custom-pet-magnet`}>
             {cta?.value && <Text size="lead">{cta.value}</Text>}
           </Link>
         </Button>
