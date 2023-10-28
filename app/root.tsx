@@ -27,6 +27,7 @@ import favicon from '../public/favicon.svg';
 import { GenericError } from './components/GenericError';
 import { NotFound } from './components/NotFound';
 import styles from './styles/app.css';
+import fonts from './styles/custom-font.css'
 import { DEFAULT_LOCALE, parseMenu } from './lib/utils';
 import { useAnalytics } from './hooks/useAnalytics';
 import {
@@ -37,6 +38,7 @@ import {
 export const links: LinksFunction = () => {
   return [
     { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: fonts },
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
