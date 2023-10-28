@@ -12,5 +12,9 @@
   font-display: swap;
   font-weight: 400;
   src:
-    url('/fonts/MilkandClay-Regular.otf')
+    url('/fonts/MilkandClay-Regular.otf'),
+    url('/fonts/MilkandClay-Regular.woff2'),
+    url('/fonts/MilkandClay-Regular.woff'),
+    url('/fonts/MilkandClay-Regular.ttf'),
+
 }
