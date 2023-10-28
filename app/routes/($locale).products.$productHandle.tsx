@@ -220,11 +220,11 @@ export default function Product() {
             </section>
           </div>
         </div>
+        <OkendoReviews
+          productId={product.id}
+          okendoReviewsSnippet={product.okendoReviewsSnippet}
+        />
       </Section>
-      <OkendoReviews
-        productId={product.id}
-        okendoReviewsSnippet={product.okendoReviewsSnippet}
-      />
       <Suspense fallback={<Skeleton className="h-32" />}>
         <Await
           errorElement="There was a problem loading related products"
