@@ -40,7 +40,7 @@ export default {
       },
       fontFamily: {
         sans: ['Poppins'],
-        milk: ['Milk'],
+        milk: ['MilkandClay-Regular'],
         poppins: ['Poppins']
       },
       fontSize: {

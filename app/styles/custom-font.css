@@ -7,14 +7,16 @@
 
 /* fraunces-regular - latin */
 @font-face {
-  font-family: 'Milk';
+  font-family: 'MilkandClay-Regular';
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src:
-    url('/fonts/MilkandClay-Regular.otf'),
-    url('/fonts/MilkandClay-Regular.woff2'),
-    url('/fonts/MilkandClay-Regular.woff'),
-    url('/fonts/MilkandClay-Regular.ttf'),
+  src: url(/fonts/MilkandClay-Regular.eot);
+  src: url(/fonts/MilkandClay-Regular.eot?#iefix) format('embedded-opentype'),
+    url(/fonts/MilkandClay-Regular.otf) format('otf'),
+    url(/fonts/MilkandClay-Regular.svg#MilkandClay-Regular) format('svg'),
+    url(/fonts/MilkandClay-Regular.ttf) format('truetype'),
+    url(/fonts/MilkandClay-Regular.woff) format('woff'),
+    url(/fonts/MilkandClay-Regular.woff2) format('woff2');
 
 }

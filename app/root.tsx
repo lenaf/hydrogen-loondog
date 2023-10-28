@@ -98,7 +98,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'></link>
         <link
-          key="Milk"
+          key='MilkandClay-Regular'
           rel="preload"
           href="/fonts/MilkandClay-Regular.otf"
           as="font"
