@@ -102,7 +102,7 @@ export default function App() {
           rel="preload"
           href="/fonts/MilkandClay-Regular.otf"
           as="font"
-          type="font/ttf"
+          type="font/otf"
           crossOrigin="anonymous"
         />,
         <link
