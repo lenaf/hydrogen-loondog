@@ -17,10 +17,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 function NextArrow({ onClick }: any) {
   return (
     <div
-      style={{ position: 'absolute', top: '40%', right: 0, zIndex: 2, cursor: 'pointer' }}
+      style={{ position: 'absolute', top: '40%', right: '-8px', zIndex: 2, cursor: 'pointer' }}
       onClick={onClick}
     >
-      <ChevronRightIcon className="h-16 w-16 text-gray-400" />
+      <ChevronRightIcon className="h-12 w-12 text-gray-400" />
     </div>
   );
 }
@@ -28,10 +28,10 @@ function NextArrow({ onClick }: any) {
 function PrevArrow({ onClick }: any) {
   return (
     <div
-      style={{ position: 'absolute', top: '40%', left: 0, zIndex: 2, cursor: 'pointer' }}
+      style={{ position: 'absolute', top: '40%', left: '-8px', zIndex: 2, cursor: 'pointer' }}
       onClick={onClick}
     >
-      <ChevronLeftIcon className="h-16 w-16 text-gray-400" />
+      <ChevronLeftIcon className="h-12 w-12 text-gray-400" />
     </div>
   );
 }
@@ -53,8 +53,6 @@ export async function loader({ params, context }: LoaderArgs) {
   const { shop, hero } = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
     variables: { handle: 'magnets' },
   });
-
-  console.log(shop,)
 
   const seo = seoPayload.home();
 
@@ -125,11 +123,10 @@ export default function Homepage() {
       )}
       <Slider
         ref={slider}
-        className='px-12'
+        className='p-6'
         swipeToSlide
         slidesToScroll={1}
         slidesToShow={4}
-        centerPadding='60px'
         responsive={[
           { breakpoint: 780, settings: { slidesToShow: 2 } },
           { breakpoint: 1024, settings: { slidesToShow: 3 } }
@@ -142,79 +139,79 @@ export default function Homepage() {
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/calico.png?v=1698108663' }}
           alt={'cat magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/husky.png?v=1698108663' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/bulldog.png?v=1698114621' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/sheepdog.png?v=1698108665' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/comet.png?v=1698108665' }}
           alt={'cat magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/celeste.png?v=1698108665' }}
           alt={'cat magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/blaize.png?v=1698108663' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/leo.png?v=1698108665' }}
           alt={'cat magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/terrier.png?v=1698108665' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/pimpy.png?v=1698108665' }}
           alt={'cat magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/tulip.png?v=1698108665' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/graydog.png?v=1698108665' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
         <Image
           aspectRatio="1"
           data={{ url: 'https://cdn.shopify.com/s/files/1/0571/2923/8571/files/graydog2.png?v=1698108665' }}
           alt={'dog magnet'}
-          className='p-4'
+          className='p-2'
         />
       </Slider >
       {/* <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 p-6"> */}
