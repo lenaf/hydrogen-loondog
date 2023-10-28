@@ -13,10 +13,10 @@
   font-weight: 400;
   src:
     /* IE6-IE8 */
-    url('/fonts/MilkandClay-Regular.woff2') format('woff2'),
+    url('/fonts/MilkandClay-Regular.woff2'),
     /* Super Modern Browsers */
-    url('/fonts/MilkandClay-Regular.woff') format('woff'),
+    url('/fonts/MilkandClay-Regular.woff'),
     /* Modern Browsers */
-    url('/fonts/MilkandClay-Regular.ttf') format('truetype'),
+    url('/fonts/MilkandClay-Regular.ttf'),
 
 }

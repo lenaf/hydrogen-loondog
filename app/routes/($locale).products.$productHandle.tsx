@@ -217,13 +217,13 @@ export default function Product() {
                   />
                 )}
               </div>
+              <OkendoReviews
+                productId={product.id}
+                okendoReviewsSnippet={product.okendoReviewsSnippet}
+              />
             </section>
           </div>
         </div>
-        <OkendoReviews
-          productId={product.id}
-          okendoReviewsSnippet={product.okendoReviewsSnippet}
-        />
       </Section>
       <Suspense fallback={<Skeleton className="h-32" />}>
         <Await
