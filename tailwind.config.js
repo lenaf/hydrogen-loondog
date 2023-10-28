@@ -39,6 +39,7 @@ export default {
         mobileGallery: 'calc(100vw - 3rem)',
       },
       fontFamily: {
+        sans: ['Milk'],
         milk: ['Milk'],
         poppins: ['Poppins']
       },
