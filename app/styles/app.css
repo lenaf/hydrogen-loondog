@@ -139,8 +139,6 @@ shop-pay-button {
     }
 
     img {
-      @apply md: -mx-8 lg:-mx-16;
-
       @media (min-width: 48em) {
         width: calc(100% + 4rem);
         max-width: 100vw;
