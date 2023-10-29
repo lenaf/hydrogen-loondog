@@ -116,7 +116,9 @@ export default function Homepage() {
   // TODO: skeletons vs placeholders
   const skeletons = getHeroPlaceholder([{}, {}, {}]);
   console.log(primaryHero)
-  const slider = React.useRef<any>(null);
+  const slider1 = React.useRef<any>(null);
+  const slider2 = React.useRef<any>(null);
+
   const [reviewsModalOpen, setReviewsModalOpen] = useState(false)
 
   return (
@@ -125,7 +127,7 @@ export default function Homepage() {
         <Hero {...primaryHero} top loading="eager" />
       )}
       <Slider
-        ref={slider}
+        ref={slider1}
         className='p-6'
         swipeToSlide
         slidesToScroll={1}
@@ -218,6 +220,43 @@ export default function Homepage() {
         />
       </Slider >
       {/* <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 p-6"> */}
+      <div className='px-16'>
+        <Slider
+          ref={slider2}
+          className='py-2 px-16'
+          swipeToSlide
+          slidesToShow={1}
+          nextArrow={<NextArrow />}
+          prevArrow={<PrevArrow />}
+        >
+          <div className='flex flex-col items-center p-6 text-center'>
+            <div className='w-fit mx-auto mb-4'>
+              <svg height="22" viewBox="0 0 78.0909090909091 14" aria-hidden="true">
+                <use x="0" href="#oke-star-filled"></use>
+                <use x="15.872727272727273" href="#oke-star-filled"></use>
+                <use x="31.745454545454546" href="#oke-star-filled"></use>
+                <use x="47.61818181818182" href="#oke-star-filled"></use>
+                <use x="63.49090909090909" href="#oke-star-filled"></use>
+              </svg>
+            </div>
+            "I received a magnet of my cat Leo and it was perfect! The attention to detail is amazing and the quality is top notch."
+          </div>
+          <div className='flex flex-col items-center p-6 text-center'>
+            <div className='mb-4'>
+              <div className='w-fit mx-auto mb-4'>
+                <svg height="22" viewBox="0 0 78.0909090909091 14" aria-hidden="true">
+                  <use x="0" href="#oke-star-filled"></use>
+                  <use x="15.872727272727273" href="#oke-star-filled"></use>
+                  <use x="31.745454545454546" href="#oke-star-filled"></use>
+                  <use x="47.61818181818182" href="#oke-star-filled"></use>
+                  <use x="63.49090909090909" href="#oke-star-filled"></use>
+                </svg>
+              </div>
+            </div>
+            "I received a magnet of my cat Leo and it was perfect! The attention to detail is amazing and the quality is top notch."
+          </div>
+        </Slider >
+      </div>
 
 
       {featuredProducts && (
@@ -225,25 +264,25 @@ export default function Homepage() {
           <Await resolve={featuredProducts}>
             {({ products }) => {
               if (!products?.nodes) return <></>;
-              return (
-                // <ProductSwimlane
-                //   products={products}
-                //   title="Featured Products"
-                //   count={4}
-                // />
-                <div className='flex flex-col items-center mb-6'>
-                  <div className='mb-4'>
-                    <OkendoStarRating
-                      productId={products.nodes[0].id}
-                      okendoStarRatingSnippet={products.nodes[0].okendoStarRatingSnippet}
-                    />
-                  </div>
-                  <Button variant='secondary' onClick={() => { setReviewsModalOpen(true) }} width="auto" >
-                    See Reviews
-                  </Button>
-                  {reviewsModalOpen && <ReviewsModal onClose={() => { setReviewsModalOpen(false) }} productId={products.nodes[0].id} />}
-                </div>
-              );
+              //return (
+              // <ProductSwimlane
+              //   products={products}
+              //   title="Featured Products"
+              //   count={4}
+              // />
+              // <div className='flex flex-col items-center mb-6'>
+              //   <div className='mb-4'>
+              //     <OkendoStarRating
+              //       productId={products.nodes[0].id}
+              //       okendoStarRatingSnippet={products.nodes[0].okendoStarRatingSnippet}
+              //     />
+              //   </div>
+              //   <Button variant='secondary' onClick={() => { setReviewsModalOpen(true) }} width="auto" >
+              //     See Reviews
+              //   </Button>
+              //   {reviewsModalOpen && <ReviewsModal onClose={() => { setReviewsModalOpen(false) }} productId={products.nodes[0].id} />}
+              // </div>
+              //);
             }}
           </Await>
         </Suspense>
