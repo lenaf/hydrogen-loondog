@@ -179,22 +179,8 @@ export default function Product() {
                   productId={product.id}
                   okendoStarRatingSnippet={product.okendoStarRatingSnippet}
                 />
-                {vendor && (
-                  <Text className={'opacity-50 font-medium'}>{vendor}</Text>
-                )}
               </div>
-              <Suspense fallback={<ProductForm variants={[]} />}>
-                <Await
-                  errorElement="There was a problem loading related products"
-                  resolve={variants}
-                >
-                  {(resp) => (
-                    <ProductForm
-                      variants={resp.product?.variants.nodes || []}
-                    />
-                  )}
-                </Await>
-              </Suspense>
+
               <div className="grid gap-4 py-4">
                 {descriptionHtml && (
                   <ProductDetail
@@ -217,6 +203,18 @@ export default function Product() {
                   />
                 )}
               </div>
+              <Suspense fallback={<ProductForm variants={[]} />}>
+                <Await
+                  errorElement="There was a problem loading related products"
+                  resolve={variants}
+                >
+                  {(resp) => (
+                    <ProductForm
+                      variants={resp.product?.variants.nodes || []}
+                    />
+                  )}
+                </Await>
+              </Suspense>
               <OkendoReviews
                 productId={product.id}
                 okendoReviewsSnippet={product.okendoReviewsSnippet}
@@ -225,7 +223,7 @@ export default function Product() {
           </div>
         </div>
       </Section>
-      <Suspense fallback={<Skeleton className="h-32" />}>
+      {/* <Suspense fallback={<Skeleton className="h-32" />}>
         <Await
           errorElement="There was a problem loading related products"
           resolve={recommended}
@@ -234,7 +232,7 @@ export default function Product() {
             <ProductSwimlane title="Related Products" products={products as any} />
           )}
         </Await>
-      </Suspense>
+      </Suspense> */}
     </>
   );
 }
