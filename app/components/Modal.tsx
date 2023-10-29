@@ -31,7 +31,7 @@ export function Modal({
             }}
             tabIndex={0}
           >
-            <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
+            <div className="absolute top-0 right-0  pt-4 pr-4 block">
               {cancelLink ? <Link
                 to={cancelLink}
                 className="p-4 -m-4 transition text-primary hover:text-primary/50"
