@@ -1,10 +1,10 @@
 import { defer, type LoaderArgs } from '@shopify/remix-oxygen';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { Await, useLoaderData } from '@remix-run/react';
 import { AnalyticsPageType } from '@shopify/hydrogen';
 import { flattenConnection, Image, Money, useMoney } from '@shopify/hydrogen';
 
-import { ProductSwimlane, FeaturedCollections, Hero, Section } from '~/components';
+import { ProductSwimlane, FeaturedCollections, Hero, Section, Button } from '~/components';
 import { MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT } from '~/data/fragments';
 import { getHeroPlaceholder } from '~/lib/placeholders';
 import { seoPayload } from '~/lib/seo.server';
@@ -12,6 +12,8 @@ import { routeHeaders } from '~/data/cache';
 import Slider from "react-slick";
 import React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import { OkendoReviews, OkendoStarRating } from '@okendo/shopify-hydrogen';
+import { ReviewsModal } from '~/components/ReviewDrawer';
 
 
 function NextArrow({ onClick }: any) {
@@ -115,6 +117,7 @@ export default function Homepage() {
   const skeletons = getHeroPlaceholder([{}, {}, {}]);
   console.log(primaryHero)
   const slider = React.useRef<any>(null);
+  const [reviewsModalOpen, setReviewsModalOpen] = useState(false)
 
   return (
     <>
@@ -217,17 +220,29 @@ export default function Homepage() {
       {/* <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 p-6"> */}
 
 
-      {/* {featuredProducts && (
+      {featuredProducts && (
         <Suspense>
           <Await resolve={featuredProducts}>
             {({ products }) => {
               if (!products?.nodes) return <></>;
               return (
-                <ProductSwimlane
-                  products={products}
-                  title="Featured Products"
-                  count={4}
-                />
+                // <ProductSwimlane
+                //   products={products}
+                //   title="Featured Products"
+                //   count={4}
+                // />
+                <div className='flex flex-col items-center mb-6'>
+                  <div className='mb-4'>
+                    <OkendoStarRating
+                      productId={products.nodes[0].id}
+                      okendoStarRatingSnippet={products.nodes[0].okendoStarRatingSnippet}
+                    />
+                  </div>
+                  <Button variant='secondary' onClick={() => { setReviewsModalOpen(true) }} width="auto" >
+                    See Reviews
+                  </Button>
+                  {reviewsModalOpen && <ReviewsModal onClose={() => { setReviewsModalOpen(false) }} productId={products.nodes[0].id} />}
+                </div>
               );
             }}
           </Await>
@@ -245,7 +260,7 @@ export default function Homepage() {
         </Suspense>
       )}
 
-      {featuredCollections && (
+      {/* {featuredCollections && (
         <Suspense>
           <Await resolve={featuredCollections}>
             {({ collections }) => {
@@ -259,9 +274,9 @@ export default function Homepage() {
             }}
           </Await>
         </Suspense>
-      )}
+      )} */}
 
-      {tertiaryHero && (
+      {/* {tertiaryHero && (
         <Suspense fallback={<Hero {...skeletons[2]} />}>
           <Await resolve={tertiaryHero}>
             {({ hero }) => {

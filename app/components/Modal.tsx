@@ -1,11 +1,13 @@
-import {IconClose, Link} from '~/components';
+import { Button, IconClose, Link } from '~/components';
 
 export function Modal({
   children,
   cancelLink,
+  onClose,
 }: {
   children: React.ReactNode;
-  cancelLink: string;
+  cancelLink?: string;
+  onClose?: () => void;
 }) {
   return (
     <div
@@ -30,12 +32,18 @@ export function Modal({
             tabIndex={0}
           >
             <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
-              <Link
+              {cancelLink ? <Link
                 to={cancelLink}
                 className="p-4 -m-4 transition text-primary hover:text-primary/50"
               >
                 <IconClose aria-label="Close panel" />
-              </Link>
+              </Link> :
+                <Button
+                  onClick={onClose}
+                  variant='secondary'
+                >
+                  <IconClose aria-label="Close panel" />
+                </Button>}
             </div>
             {children}
           </div>
