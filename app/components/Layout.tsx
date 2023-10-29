@@ -432,14 +432,18 @@ function FooterLink({ item }: { item: ChildEnhancedMenuItem }) {
   if (item.to.startsWith('http')) {
     return (
       <a href={item.to} target={item.target} rel="noopener noreferrer">
-        {item.title}
+        <Heading className="flex justify-between" size="lead" as="h3">
+          {item.title}
+        </Heading >
       </a>
     );
   }
 
   return (
     <Link to={item.to} target={item.target} prefetch="intent">
-      {item.title}
+      <Heading className="flex justify-between" size="lead" as="h3">
+        {item.title}
+      </Heading >
     </Link>
   );
 }
@@ -458,14 +462,15 @@ function FooterMenu({ menu }: { menu?: EnhancedMenu }) {
             {({ open }) => (
               <>
                 <Disclosure.Button className="text-left md:cursor-default">
-                  <Heading className="flex justify-between" size="lead" as="h3">
+                  <FooterLink key={item.id} item={item} />
+                  {/* <Heading className="flex justify-between" size="lead" as="h3">
                     {item.title}
                     {item?.items?.length > 0 && (
                       <span className="md:hidden">
                         <IconCaret direction={open ? 'up' : 'down'} />
                       </span>
                     )}
-                  </Heading>
+                  </Heading> */}
                 </Disclosure.Button>
                 {item?.items?.length > 0 ? (
                   <div
