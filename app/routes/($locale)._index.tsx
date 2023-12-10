@@ -220,42 +220,17 @@ export default function Homepage() {
         />
       </Slider >
       {/* <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 p-6"> */}
-      <div className='px-16'>
-        <Slider
-          ref={slider2}
-          className='py-2 px-16'
-          swipeToSlide
-          slidesToShow={1}
-          nextArrow={<NextArrow />}
-          prevArrow={<PrevArrow />}
-        >
-          <div className='flex flex-col items-center p-6 text-center'>
-            <div className='w-fit mx-auto mb-4'>
-              <svg height="22" viewBox="0 0 78.0909090909091 14" aria-hidden="true">
-                <use x="0" href="#oke-star-filled"></use>
-                <use x="15.872727272727273" href="#oke-star-filled"></use>
-                <use x="31.745454545454546" href="#oke-star-filled"></use>
-                <use x="47.61818181818182" href="#oke-star-filled"></use>
-                <use x="63.49090909090909" href="#oke-star-filled"></use>
-              </svg>
-            </div>
-            "I received a magnet of my cat Leo and it was perfect! The attention to detail is amazing and the quality is top notch."
-          </div>
-          <div className='flex flex-col items-center p-6 text-center'>
-            <div className='mb-4'>
-              <div className='w-fit mx-auto mb-4'>
-                <svg height="22" viewBox="0 0 78.0909090909091 14" aria-hidden="true">
-                  <use x="0" href="#oke-star-filled"></use>
-                  <use x="15.872727272727273" href="#oke-star-filled"></use>
-                  <use x="31.745454545454546" href="#oke-star-filled"></use>
-                  <use x="47.61818181818182" href="#oke-star-filled"></use>
-                  <use x="63.49090909090909" href="#oke-star-filled"></use>
-                </svg>
-              </div>
-            </div>
-            "I received a magnet of my cat Leo and it was perfect! The attention to detail is amazing and the quality is top notch."
-          </div>
-        </Slider >
+      <div className='flex flex-col items-center p-6 text-center'>
+        <div className='w-fit mx-auto mb-4'>
+          <svg height="22" viewBox="0 0 78.0909090909091 14" aria-hidden="true">
+            <use x="0" href="#oke-star-filled"></use>
+            <use x="15.872727272727273" href="#oke-star-filled"></use>
+            <use x="31.745454545454546" href="#oke-star-filled"></use>
+            <use x="47.61818181818182" href="#oke-star-filled"></use>
+            <use x="63.49090909090909" href="#oke-star-filled"></use>
+          </svg>
+        </div>
+        "I received a magnet of my cat Leo and it was perfect! The attention to detail is amazing and the quality is top notch."
       </div>
 
 
