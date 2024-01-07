@@ -271,6 +271,7 @@ export function ProductForm({
         cloudName: cloudinary.name,
         uploadPreset: cloudinary.preset
       }, (error: any, result: any) => {
+        console.log(error)
         if (!error && result && result.event === "success") {
           console.log('Done! Here is the image info: ', result);
           setUploadedImages(prev => [...prev, result.info.url]);
@@ -399,7 +400,6 @@ export function ProductForm({
               </Button>
             ) : (
               <AddToCartButton
-                disabled={!uploadedImages.length}
                 lines={[
                   {
                     merchandiseId: selectedVariant.id!,
